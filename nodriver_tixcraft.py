@@ -98,7 +98,7 @@ CONST_OCR_CAPTCH_IMAGE_SOURCE_NON_BROWSER = "NonBrowser"
 CONST_OCR_CAPTCH_IMAGE_SOURCE_CANVAS = "canvas"
 
 CONST_WEBDRIVER_TYPE_NODRIVER = "nodriver"
-CONST_CHROME_FAMILY = ["chrome","edge","brave"]
+CONST_CHROME_FAMILY = ["chrome","chrome-beta","edge","brave","brave-beta"]
 
 warnings.simplefilter('ignore',InsecureRequestWarning)
 ssl._create_default_https_context = ssl._create_unverified_context
