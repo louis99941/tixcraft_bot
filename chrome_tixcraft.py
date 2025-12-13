@@ -842,11 +842,13 @@ def get_driver_by_config(config_dict):
             time.sleep(3.0)
 
             tixcraft_family = False
+            cookies_sid_name = "TIXUISID"
             if 'tixcraft.com' in homepage:
                 tixcraft_family = True
 
             if 'indievox.com' in homepage:
                 tixcraft_family = True
+                cookies_sid_name = "IVUISID"
 
             if 'ticketmaster.' in homepage:
                 tixcraft_family = True
@@ -854,9 +856,9 @@ def get_driver_by_config(config_dict):
             if tixcraft_family:
                 tixcraft_sid = config_dict["advanced"]["tixcraft_sid"]
                 if len(tixcraft_sid) > 1:
-                    driver.delete_cookie("SID")
+                    driver.delete_cookie(cookies_sid_name)
                     domain_name = homepage.split('/')[2]
-                    driver.add_cookie({"name":"SID", "value": tixcraft_sid, "domain": domain_name, "path" : "/", "secure":True})
+                    driver.add_cookie({"name": cookies_sid_name, "value": tixcraft_sid, "domain": domain_name, "path": "/", "secure": True})
                     driver.refresh()
 
             if 'ibon.com' in homepage:

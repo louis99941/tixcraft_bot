@@ -332,11 +332,13 @@ async def nodriver_goto_homepage(driver, config_dict):
         pass
 
     tixcraft_family = False
+    cookies_sid_name = "TIXUISID"
     if 'tixcraft.com' in homepage:
         tixcraft_family = True
 
     if 'indievox.com' in homepage:
         tixcraft_family = True
+        cookies_sid_name = "IVUISID"
 
     if 'ticketmaster.' in homepage:
         tixcraft_family = True
@@ -345,17 +347,17 @@ async def nodriver_goto_homepage(driver, config_dict):
         tixcraft_sid = config_dict["advanced"]["tixcraft_sid"]
         if len(tixcraft_sid) > 1:
             domain_name = homepage.split('/')[2]
-            cookies  = await driver.cookies.get_all()
+            cookies = await driver.cookies.get_all()
             is_cookie_exist = False
             for cookie in cookies:
-                if cookie.name=='SID':
-                    cookie.value=tixcraft_sid
+                if cookie.name == cookies_sid_name:
+                    cookie.value = tixcraft_sid
                     is_cookie_exist = True
                     break
 
             is_cookie_changed = False
             if not is_cookie_exist:
-                new_cookie = cdp.network.CookieParam("SID",tixcraft_sid, domain=domain_name, path="/", http_only=True, secure=True)
+                new_cookie = cdp.network.CookieParam(cookies_sid_name, tixcraft_sid, domain=domain_name, path="/", http_only=True, secure=True)
                 cookies.append(new_cookie)
                 is_cookie_changed = True
             await driver.cookies.set_all(cookies)
